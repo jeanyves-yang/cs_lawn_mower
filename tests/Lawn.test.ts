@@ -43,7 +43,33 @@ mocha.describe('Lawn class', () => {
     let action: Action = Action.Left;
     lawn.moveMower(0, action);
 
-    // Tests that a mower with position outside the lawn cannot be added and an exception is returned.
+    // Tests that the mower orientation has changed.
     expect(lawn.mowers[0].orientation).to.eql(Orientation.West);
+
+    // Tests that the mower position has not changed.
+    expect(lawn.mowers[0].position).to.eql(position);
+  });
+
+  it('shall be able to move forward  a mower using F' , () => {
+    // Init a lawn mower
+    let position: [number, number] = [2, 2];
+    let orientation: Orientation = Orientation.North;
+    let goodLawnMower = new LawnMower(position, orientation);
+
+    // Init a lawn
+    let corner: [number, number] = [5, 5];
+    let lawn: Lawn = new Lawn(corner);
+
+    lawn.addMower(goodLawnMower);
+
+    let action: Action = Action.Front;
+    lawn.moveMower(0, action);
+
+    // Tests that the mower orientation has not changed.
+    expect(lawn.mowers[0].orientation).to.eql(orientation);
+
+    // Tests that the mower position has changed.
+    let expectedPosition: [number, number] = [2, 3];
+    expect(lawn.mowers[0].position).to.eql(expectedPosition);
   });
 });
