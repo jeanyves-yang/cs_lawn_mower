@@ -3,23 +3,38 @@
 This is a typescript based repository, simulating lawn mowers moving on a rectangular surface. 
 
 ## Dependencies
+(Refer to package-lock.json for more details)
 - typescript (used: 4.0.2)
 - node (used: 12.16.0)
+- mocha (8.0.3) + chai (4.2.12) for testing
+-nyc (15.1.0) for 
 
 ## How to run
+- In general, you can refer to scripts in package.json
+- For more details, see below.
+
 - Edit the configuration file (...) to indicate the path to the input commands text file. 
-- Run typescript to generate corresponding js files:
+- Run build to generate corresponding js files:
 ```
-tsc main.ts
+npm run build
 ```
 
-- Run the javascript files: 
+- Run it:
 ```
-node main.js
+npm run start
 ```
 
 ## How to test
+Run the following in order to run all tests:
+```
+npm run test
+```
 
+You can also check lint errors and format using:
+```
+npm run lint
+npm run format
+```
 
 ## Requirements
 - A lawn mower is defined by two coordinates (x,y) and a direction (letter: N, E, S or W)
@@ -38,11 +53,7 @@ node main.js
 
 ## Notes
 - Several lawn mowers can be at the same position. 
-- 
-
-
-
-
+- Uses prettier for formatting, tslint as linter.
 
 
 ## Author
