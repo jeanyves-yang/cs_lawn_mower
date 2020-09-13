@@ -1,11 +1,11 @@
 /**
- * An enum that specifies the orientation of the lawn mower. It can be any of the 4 cardinal directions.
+ * An object that specifies the orientation of the lawn mower. It can be any of the 4 cardinal directions.
  */
-export enum Orientation {
-  North = "N",
-  East = "E",
-  South = "S",
-  West = "W",
+export const ori = { N: "N", E: "E", S: "S", W: "W" };
+export type Orientation = keyof typeof ori;
+
+export function isOrientation(x: string): x is Orientation {
+  return ori.hasOwnProperty(x);
 }
 
 /**

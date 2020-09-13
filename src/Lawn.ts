@@ -3,10 +3,16 @@ import { LawnMower, Orientation } from "./LawnMower";
 /**
  * An enum that specifies the actions the lawn mower can perform.
  */
-export enum Action {
-  Left = "L",
-  Right = "R",
-  Front = "F",
+export const action  = {
+  L: "L",
+  R: "R",
+  F: "F",
+};
+
+export type Action = keyof typeof action;
+
+export function isAction(x: string): x is Action {
+  return action.hasOwnProperty(x);
 }
 
 /*
@@ -46,7 +52,6 @@ export class Lawn {
   constructor(public corner: [number, number]) {
     this.dimensions = corner;
     this.mowers = [];
-
   }
 
   /*
@@ -90,48 +95,50 @@ export class Lawn {
 
     switch (action) {
       // To improve somehow in readability ... not use a string in the enum and just -1 or + 1 ?
-      case Action.Left:
-        if (mower.orientation === Orientation.North) {
-            mower.orientation = Orientation.West;
-        } else if (mower.orientation === Orientation.East) {
-            mower.orientation = Orientation.North;
-        } else if (mower.orientation === Orientation.South) {
-            mower.orientation = Orientation.East;
-        } else if (mower.orientation === Orientation.West) {
-            mower.orientation = Orientation.South;
+      case "L":
+        if (mower.orientation === "N") {
+          mower.orientation = "W";
+        } else if (mower.orientation === "E") {
+          mower.orientation = "N";
+        } else if (mower.orientation === "S") {
+          mower.orientation = "E";
+        } else if (mower.orientation === "W") {
+          mower.orientation = "S";
         }
         break;
 
-      case Action.Right:
-        if (mower.orientation === Orientation.North) {
-            mower.orientation = Orientation.East;
-        } else if (mower.orientation === Orientation.East) {
-            mower.orientation = Orientation.South;
-        } else if (mower.orientation === Orientation.South) {
-            mower.orientation = Orientation.West;
-        } else if (mower.orientation === Orientation.West) {
-            mower.orientation = Orientation.North;
+      case "R":
+        if (mower.orientation === "N") {
+          mower.orientation = "E";
+        } else if (mower.orientation === "E") {
+          mower.orientation = "S";
+        } else if (mower.orientation === "S") {
+          mower.orientation = "W";
+        } else if (mower.orientation === "W") {
+          mower.orientation = "N";
         }
         break;
 
-      case Action.Front:
-        const newPosition: [number, number] = { ...mower.position };
-        if (mower.orientation === Orientation.North) {
+      case "F":
+        const newPosition: [number, number] = mower.position;
+        if (mower.orientation === "N") {
           newPosition[1] += 1;
-        } else if (mower.orientation === Orientation.East) {
+        } else if (mower.orientation === "E") {
           newPosition[0] += 1;
-        } else if (mower.orientation === Orientation.South) {
+        } else if (mower.orientation === "S") {
           newPosition[1] -= 1;
-        } else if (mower.orientation === Orientation.West) {
+        } else if (mower.orientation === "W") {
           newPosition[0] -= 1;
         }
         if (isPositionValid(newPosition, this.dimensions)) {
-            mower.position = newPosition;
+          mower.position = newPosition;
         }
         break;
 
       default:
-        throw new Error("Second argument of moveMower should be an enum Action");
+        throw new Error(
+          "Second argument of moveMower should be an enum Action"
+        );
     }
   }
 }

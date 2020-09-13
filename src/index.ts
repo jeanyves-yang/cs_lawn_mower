@@ -1,24 +1,50 @@
-import {LawnMower, Orientation} from './LawnMower'
-import {Action, Lawn} from './Lawn'
+import * as fs from "fs";
 
-let position: [number, number] = [2, 2];
-let orientation: Orientation = Orientation.North;
-let goodLawnMower = new LawnMower(position, orientation);
+import { Lawn } from "./Lawn";
+import { LawnMowerParser } from "./LawnMowerParser";
 
-// Init a lawn
-let corner: [number, number] = [5, 5];
-let lawn: Lawn = new Lawn(corner);
+// Parse the command file
+import * as data from "../config.json";
 
-lawn.addMower(goodLawnMower);
+(async () => {
+  // Init the grid
 
-console.log(lawn.mowers.length);
+  let corner: [number, number] = [0, 0];
+  let lawn: Lawn = new Lawn(corner);
+  // Init the parser and interpret the commands read.
+  let lawnParser: LawnMowerParser = new LawnMowerParser(lawn);
+  try {
+  await lawnParser.interpretCommandFile(data.inputPath);
+  console.log(lawnParser);
+  } catch (error) 
+{
+  // Simplistic way of handling errors, it hides the exception.
+  console.log("Error: Parsing of the command file failed: " + error);
+}
 
-let badPosition: [number, number] = [6, 6];
-let badLawnMower = new LawnMower(badPosition, orientation);
+  console.log("Commands file parsed.");
 
-console.log(lawn.mowers.length);
+  // Read the final positions of the mower and output them.
+  let outputString: string = "";
+  console.log(lawnParser.lawn.mowers.length);
 
-let action: Action = Action.Left;
-lawn.moveMower(0, action);
+  lawnParser.lawn.mowers.forEach((mower) => {
+    outputString +=
+      mower.position[0].toString() +
+      " " +
+      mower.position[1].toString() +
+      " " +
+      mower.orientation.toString() +
+      "\n";
+  });
 
-console.log(lawn.mowers[0].orientation);
+  fs.writeFile(data.outputPath, outputString, (error) => {
+    // throws an error, you could also catch it here
+    if (error) {
+      console.log("Error: writing output file failed: " + error);
+    } else {
+      // success case, the file was saved
+      console.log("Output file written.");
+    }
+  });
+})();
