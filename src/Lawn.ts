@@ -3,16 +3,16 @@ import { LawnMower, Orientation } from "./LawnMower";
 /**
  * An enum that specifies the actions the lawn mower can perform.
  */
-export const action  = {
+export const actionType = {
   L: "L",
   R: "R",
   F: "F",
 };
 
-export type Action = keyof typeof action;
+export type Action = keyof typeof actionType;
 
 export function isAction(x: string): x is Action {
-  return action.hasOwnProperty(x);
+  return actionType.hasOwnProperty(x);
 }
 
 /*

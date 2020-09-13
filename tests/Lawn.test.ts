@@ -10,7 +10,7 @@ mocha.describe('Lawn class', () => {
   it('shall be able to add a mower in any position within its dimension' , () => {
     // Init a lawn mower
     let position: [number, number] = [2, 2];
-    let orientation: Orientation = "North";
+    let orientation: Orientation = "N";
     let goodLawnMower = new LawnMower(position, orientation);
 
     // Init a lawn
@@ -31,7 +31,7 @@ mocha.describe('Lawn class', () => {
   it('shall be able to rotate a mower using L or R' , () => {
     // Init a lawn mower
     let position: [number, number] = [2, 2];
-    let orientation: Orientation = "North";
+    let orientation: Orientation = "N";
     let goodLawnMower = new LawnMower(position, orientation);
 
     // Init a lawn
@@ -40,21 +40,21 @@ mocha.describe('Lawn class', () => {
 
     lawn.addMower(goodLawnMower);
 
-    let action: Action = "Left";
+    let action: Action = "L";
     lawn.moveMower(0, action);
 
     // Tests that the mower orientation has changed.
-    expect(lawn.mowers[0].orientation).to.eql("West");
+    expect(lawn.mowers[0].orientation).to.eql("W");
 
     // Tests that the mower position has not changed.
     expect(lawn.mowers[0].position).to.eql(position);
 
     // Repeat for an action to the right.
-    action = "Right";
+    action = "R";
     lawn.moveMower(0, action);
 
     // Tests that the mower orientation has changed.
-    expect(lawn.mowers[0].orientation).to.eql("North");
+    expect(lawn.mowers[0].orientation).to.eql("N");
 
     // Tests that the mower position has not changed.
     expect(lawn.mowers[0].position).to.eql(position);
@@ -63,7 +63,7 @@ mocha.describe('Lawn class', () => {
   it('shall be able to move forward a mower using F' , () => {
     // Init a lawn mower
     let position: [number, number] = [2, 2];
-    let orientation: Orientation = "North";
+    let orientation: Orientation = "N";
     let goodLawnMower = new LawnMower(position, orientation);
 
     // Init a lawn
@@ -72,7 +72,7 @@ mocha.describe('Lawn class', () => {
 
     lawn.addMower(goodLawnMower);
 
-    let action: Action = "Front";
+    let action: Action = "F";
     lawn.moveMower(0, action);
 
     // Tests that the mower orientation has not changed.
@@ -88,7 +88,7 @@ mocha.describe('Lawn class', () => {
     let corner: [number, number] = [5, 5];
     let lawn: Lawn = new Lawn(corner);
 
-    let action: Action = "Front";
+    let action: Action = "F";
 
     // Tests that an exception is returned when trying to move a non existant mower.
     expect(lawn.moveMower.bind(lawn, 0, action)).to.throw();

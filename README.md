@@ -13,13 +13,21 @@ This is a typescript based repository, simulating lawn mowers moving on a rectan
 - In general, you can refer to scripts in package.json
 - For more details, see below.
 
-- Edit the configuration file (...) to indicate the path to the input commands text file. 
-- Run build to generate corresponding js files:
+- Edit the configuration file config.json to indicate the path to the input commands text file. By default it is set to inputCommands.txt. You can also indicate the output file path (it will contain the final position and orientation of each lawn mower).
+
+- Run directly the index.ts with ts-node: 
+```
+npm run start-dev
+```
+
+- Output is written in the file as specified in the config.json
+
+- (Optionally, if this was packaged) Run build to generate corresponding js files:
 ```
 npm run build
 ```
 
-- Run it:
+- Then run it:
 ```
 npm run start
 ```
@@ -35,6 +43,17 @@ You can also check lint errors and format using:
 npm run lint
 npm run format
 ```
+
+You can also check test coverage using (it also runs test):
+```
+npm run coverage
+```
+It produces a folder coverage containing all the details, as well as giving an output in the command line as follow: 
+=============================== Coverage summary ===============================
+Statements   : 96.57% ( 197/204 )
+Branches     : 89.29% ( 50/56 )
+Functions    : 93.94% ( 31/33 )
+Lines        : 97.45% ( 191/196 )
 
 ## Requirements
 - A lawn mower is defined by two coordinates (x,y) and a direction (letter: N, E, S or W)
@@ -53,8 +72,8 @@ npm run format
 
 ## Notes
 - Several lawn mowers can be at the same position. 
-- Uses prettier for formatting, tslint as linter.
-
-
+- Uses prettier for formatting, tslint as linter, nyc as coverage, mocha/chai + chai-as-expected as test framework.
+- Should replace the console log calls in index.ts by a proper logger, would also avoid the remaining lint errors.
+ 
 ## Author
 Jean-Yves Yang

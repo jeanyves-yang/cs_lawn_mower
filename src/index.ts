@@ -9,24 +9,21 @@ import * as data from "../config.json";
 (async () => {
   // Init the grid
 
-  let corner: [number, number] = [0, 0];
-  let lawn: Lawn = new Lawn(corner);
+  const corner: [number, number] = [0, 0];
+  const lawn: Lawn = new Lawn(corner);
   // Init the parser and interpret the commands read.
-  let lawnParser: LawnMowerParser = new LawnMowerParser(lawn);
+  const lawnParser: LawnMowerParser = new LawnMowerParser(lawn);
   try {
-  await lawnParser.interpretCommandFile(data.inputPath);
-  console.log(lawnParser);
-  } catch (error) 
-{
-  // Simplistic way of handling errors, it hides the exception.
-  console.log("Error: Parsing of the command file failed: " + error);
-}
+    await lawnParser.interpretCommandFile(data.inputPath);
+  } catch (error) {
+    // Simplistic way of handling errors, it hides the exception.
+    console.log("Error: Parsing of the command file failed: " + error);
+  }
 
   console.log("Commands file parsed.");
 
   // Read the final positions of the mower and output them.
   let outputString: string = "";
-  console.log(lawnParser.lawn.mowers.length);
 
   lawnParser.lawn.mowers.forEach((mower) => {
     outputString +=
@@ -39,7 +36,7 @@ import * as data from "../config.json";
   });
 
   fs.writeFile(data.outputPath, outputString, (error) => {
-    // throws an error, you could also catch it here
+    // throws an error
     if (error) {
       console.log("Error: writing output file failed: " + error);
     } else {
