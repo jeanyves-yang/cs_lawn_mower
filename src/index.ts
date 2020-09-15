@@ -1,6 +1,7 @@
 import * as fs from "fs";
 
 import { Lawn } from "./Lawn";
+import { Coord } from "./LawnMower";
 import { LawnMowerParser } from "./LawnMowerParser";
 
 // Parse the command file
@@ -9,7 +10,7 @@ import * as data from "../config.json";
 (async () => {
   // Init the grid
 
-  const corner: [number, number] = [0, 0];
+  const corner: Coord = [0, 0];
   const lawn: Lawn = new Lawn(corner);
   // Init the parser and interpret the commands read.
   const lawnParser: LawnMowerParser = new LawnMowerParser(lawn);

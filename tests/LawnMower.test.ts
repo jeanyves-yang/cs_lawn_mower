@@ -2,7 +2,7 @@ import * as mocha from "mocha";
 import * as chai from "chai";
 import { Lawn } from "../src/Lawn";
 import { LawnMowerParser } from "../src/LawnMowerParser";
-import { Orientation } from "../src/LawnMower";
+import { Orientation, Coord } from "../src/LawnMower";
 
 let chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
@@ -11,14 +11,14 @@ const expect = chai.expect;
 mocha.describe("LawnMower class", () => {
   it("shall be able to parse a regular input file", async () => {
     let path = "tests/goodInputCommands.txt";
-    let corner: [number, number] = [0, 0];
+    let corner: Coord = [0, 0];
     let lawn: Lawn = new Lawn(corner);
     // Init the parser and interpret the commands read.
     let lawnParser: LawnMowerParser = new LawnMowerParser(lawn);
     await lawnParser.interpretCommandFile(path);
 
     // Tests that the lawn parser's lawn has (5,5) dimensions.
-    let expectedDimensions: [number, number] = [5, 5];
+    let expectedDimensions: Coord = [5, 5];
     expect(lawnParser.lawn.dimensions).to.eql(expectedDimensions);
 
     // Tests that the lawn parser's lawn has 2 mowers.
@@ -26,7 +26,7 @@ mocha.describe("LawnMower class", () => {
     expect(lawnParser.lawn.mowers.length).to.eql(expectedNbMowers);
 
     // Tests that the lawn parser's lawn mowers are at (1, 3, N) and (5, 1, E).
-    let expectedPos: [number, number] = [1, 3];
+    let expectedPos: Coord = [1, 3];
     expect(lawnParser.lawn.mowers[0].position).to.eql(expectedPos);
     let expectedOri: Orientation = "N";
     expect(lawnParser.lawn.mowers[0].orientation).to.eql(expectedOri);
@@ -39,7 +39,7 @@ mocha.describe("LawnMower class", () => {
 
   it("shall throw if bad inputs are given for the lawn dimensions", async () => {
     let path = "tests/BadFirstLineInputCommands.txt";
-    let corner: [number, number] = [0, 0];
+    let corner: Coord = [0, 0];
     let lawn: Lawn = new Lawn(corner);
     // Init the parser and interpret the commands read.
     let lawnParser: LawnMowerParser = new LawnMowerParser(lawn);
@@ -54,7 +54,7 @@ mocha.describe("LawnMower class", () => {
 
   it("shall throw if bad inputs are given for a lawn mower movement", async () => {
     let path = "tests/BadOddLineInputCommands.txt";
-    let corner: [number, number] = [0, 0];
+    let corner: Coord = [0, 0];
     let lawn: Lawn = new Lawn(corner);
     // Init the parser and interpret the commands read.
     let lawnParser: LawnMowerParser = new LawnMowerParser(lawn);
@@ -70,7 +70,7 @@ mocha.describe("LawnMower class", () => {
   
   it("shall throw if bad inputs are given for a lawn mower initialization", async () => {
     let path = "tests/BadEvenLineInputCommands.txt";
-    let corner: [number, number] = [0, 0];
+    let corner: Coord = [0, 0];
     let lawn: Lawn = new Lawn(corner);
     // Init the parser and interpret the commands read.
     let lawnParser: LawnMowerParser = new LawnMowerParser(lawn);

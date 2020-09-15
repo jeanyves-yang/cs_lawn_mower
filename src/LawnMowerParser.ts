@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as rd from "readline";
 import { once } from "events";
 
-import { isOrientation, LawnMower, Orientation } from "./LawnMower";
+import { isOrientation, LawnMower, Orientation, Coord } from "./LawnMower";
 import { Action, isAction, Lawn } from "./Lawn";
 
 /**
@@ -50,7 +50,7 @@ export class LawnMowerParser {
             );
           }
 
-          const corner: [number, number] = [
+          const corner: Coord = [
             parseInt(tokens[0], 10),
             parseInt(tokens[1], 10),
           ];
@@ -96,7 +96,7 @@ export class LawnMowerParser {
         );
       }
 
-      const position: [number, number] = [
+      const position: Coord = [
         parseInt(tokens[0], 10),
         parseInt(tokens[1], 10),
       ];

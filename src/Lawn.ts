@@ -1,4 +1,4 @@
-import { LawnMower, Orientation } from "./LawnMower";
+import { Coord, LawnMower } from "./LawnMower";
 
 /**
  * An enum that specifies the actions the lawn mower can perform.
@@ -18,19 +18,13 @@ export function isAction(x: string): x is Action {
 /*
  * Function that checks if a given position (tuple of two numbers) is within the lawn dimensions.
  */
-function isPositionValid(
-  position: [number, number],
-  lawnDimensions: [number, number]
-): boolean {
-  if (
+function isPositionValid(position: Coord, lawnDimensions: Coord): boolean {
+  return (
     position[0] <= lawnDimensions[0] &&
     position[1] <= lawnDimensions[1] &&
     position[0] >= 0 &&
     position[1] >= 0
-  ) {
-    return true;
-  }
-  return false;
+  );
 }
 
 /**
@@ -43,13 +37,13 @@ function isPositionValid(
  * - move front, which updates their position accordingly.
  */
 export class Lawn {
-  public dimensions: [number, number];
+  public dimensions: Coord;
   public mowers: LawnMower[];
 
   /*
    * Default constructor, initialized by the upper right corner position.
    */
-  constructor(public corner: [number, number]) {
+  constructor(public corner: Coord) {
     this.dimensions = corner;
     this.mowers = [];
   }
@@ -120,7 +114,7 @@ export class Lawn {
         break;
 
       case "F":
-        const newPosition: [number, number] = mower.position;
+        const newPosition: Coord = mower.position;
         if (mower.orientation === "N") {
           newPosition[1] += 1;
         } else if (mower.orientation === "E") {
