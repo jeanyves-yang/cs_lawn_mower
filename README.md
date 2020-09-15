@@ -7,7 +7,7 @@ This is a typescript based repository, simulating lawn mowers moving on a rectan
 - typescript (used: 4.0.2)
 - node (used: 12.16.0)
 - mocha (8.0.3) + chai (4.2.12) for testing
--nyc (15.1.0) for 
+- nyc (15.1.0) for coverage
 
 ## How to run
 - In general, you can refer to scripts in package.json
